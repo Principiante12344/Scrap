@@ -1,4 +1,4 @@
-var { ytmp3 } = require("./SumiFX/SumiFX_ytmp3")
+var { ytmp3 } = require("./SumiFX")
 
 module.exports = {
     ytmp3: ytmp3
