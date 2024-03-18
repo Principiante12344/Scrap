@@ -7,10 +7,10 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SumiFX/SumiFX.git"
+    "url": "git+https://github.com/SumiFX/SumiFX-Scraper.git"
   },
   "bugs": {
-    "url": "https://github.com/SumiFX/SumiFX/issues"
+    "url": "https://github.com/SumiFX/SumiFX-Scraper/issues"
   },
-  "homepage": "https://github.com/SumiFX/SumiFX#readme"
+  "homepage": "https://github.com/SumiFX/SumiFX-Scraper#readme"
 }
