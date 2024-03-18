@@ -1,0 +1,16 @@
+{
+  "name": "@SumiFX/Sumi",
+  "version": "1.0.0",
+  "description": "SumiFX",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SumiFX/SumiFX.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SumiFX/SumiFX/issues"
+  },
+  "homepage": "https://github.com/SumiFX/SumiFX#readme"
+}
