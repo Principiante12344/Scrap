@@ -1,8 +1,32 @@
 const { search, download } = require('aptoide-scraper')
-const { youtubedl, youtubedlv2 } = require('@bochilteam/scraper')
+const { youtubedl, youtubedlv2, mediafiredl } = require('@bochilteam/scraper')
 const yts = require('yt-search')
+const fg = require("api-dylux")
 const axios = require('axios')
 const cheerio = require('cheerio')
+const request = require('request')
+
+async function igdl(link) {
+    try {
+        const results = await fg.igdl(link)
+          const url2 = results.result[0].url
+          const dl_url = await shortenUrl(url2)
+        return { dl_url }
+    } catch {
+  }
+}
+
+async function mediafire(link) {
+    try {
+        let res = await mediafiredl(link)
+        let { url, filename, ext, aploud, filesizeH } = res
+        let dl_url = await shortenUrl(url)
+        let title = filename
+        let size = filesizeH
+        return { title, ext, aploud, size, dl_url }
+    } catch (error) {
+    }
+}
 
 async function appleMusic(text) {
     try {
@@ -20,7 +44,7 @@ async function appleMusic(text) {
                     artist: result.artists,
                     type: result.type,
                     url: result.url
-                };
+                }
                 results.push(formattedResult)
             }
         }
@@ -83,9 +107,10 @@ async function openAi(text) {
              let response = await fetch(`https://aemt.me/prompt/gpt?prompt=${encodeURIComponent(anu)}&text=${encodeURIComponent(text)}`)
              let result = await response.json()
             let msg = result.result
-            previousMessages = [...previousMessages, { role: "user", content: text }]
 
            return { msg }
+           
+           previousMessages = [...previousMessages, { role: "user", content: text }]
           } catch {
         }
       }
@@ -244,6 +269,47 @@ function formatPublishedTime(time) {
     }
 }
 
+async function soundcloud(url) { 
+       try {
+           let res = await soundcloudinfo(url)
+             let title = res.judul
+               let plays = res.download_count
+             let thumbnail = res.thumb
+           let link = res.link
+             let dl_url = await shortenUrl(link)
+
+            return { title, plays, thumbnail, thumbnail, dl_url }
+       } catch {
+    }
+}
+
+async function soundcloudinfo(link) {
+    return new Promise((resolve, reject) => {
+        const options = {
+            method: 'POST',
+            url: "https://www.klickaud.co/download.php",
+            headers: {
+                'content-type': 'application/x-www-form-urlencoded'
+            },
+            formData: {
+                'value': link,
+                '2311a6d881b099dc3820600739d52e64a1e6dcfe55097b5c7c649088c4e50c37': '710c08f2ba36bd969d1cbc68f59797421fcf90ca7cd398f78d67dfd8c3e554e3'
+            }
+        }
+
+        request(options, async function (error, response, body) {
+            if (error) throw new Error(error)
+            const $ = cheerio.load(body)
+            resolve({
+                judul: $('#header > div > div > div.col-lg-8 > div > table > tbody > tr > td:nth-child(2)').text(),
+                download_count: $('#header > div > div > div.col-lg-8 > div > table > tbody > tr > td:nth-child(3)').text(),
+                thumb: $('#header > div > div > div.col-lg-8 > div > table > tbody > tr > td:nth-child(1) > img').attr('src'),
+                link: $('#dlMP3').attr('onclick').split(`downloadFile('`)[1].split(`',`)[0]
+            })
+        })
+    })
+}
+
 async function shortenUrl(url) {
     try {
         const fetch = await import('node-fetch')
@@ -253,4 +319,4 @@ async function shortenUrl(url) {
     }
 }
 
-module.exports = { appleMusic, aptoide, fbdl, tiktokdl, tiktokSearch, openAi, pinterest, ytsearch, ytmp3, ytmp4 }
+module.exports = { appleMusic, aptoide, fbdl, igdl, mediafire, tiktokdl, tiktokSearch, openAi, pinterest, soundcloud, ytsearch, ytmp3, ytmp4 }
