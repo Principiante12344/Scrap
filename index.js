@@ -1,4 +1,4 @@
-var { aptoide, fbdl, GDriveDl, GoogleImage, igdl, igstalk, mediafire, rule34, tiktokdl, pinterest, ppcouple, xnxxdl, ytsearch, ytmp3, ytmp4 } = require("./SumiFX")
+var { aptoide, fbdl, GDriveDl, GoogleImage, igdl, igstalk, mediafire, rule34, tiktokdl, pinterest, ppcouple, spotifySearch, xnxxdl, ytsearch, ytmp3, ytmp4 } = require("./SumiFX")
 
 module.exports = {
     aptoide: aptoide,
@@ -9,6 +9,7 @@ module.exports = {
     igstalk: igstalk,
     mediafire: mediafire,
     rule34: rule34,
+    spotifySearch: spotifySearch,
     tiktokdl: tiktokdl,
     pinterest: pinterest,
     ppcouple: ppcouple,
